@@ -22,7 +22,11 @@ def crear_tablero(filas, columnas):
         if i == 0:
             tablero[i].insert(0, ' ')
         elif i % 2 != 0:
-            tablero[i].insert(0, str((i + 1) // 2))
+            numero = (i + 1) // 2
+            if numero < 9:
+                tablero[i].insert(0, ''+ str(numero))
+            else:
+                tablero[i].insert(0, str(numero))
         else:
             tablero[i].insert(0, ' ')
 

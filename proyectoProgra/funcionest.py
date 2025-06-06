@@ -3,6 +3,21 @@ ROJO = "\033[91m"
 AZUL = "\033[94m"
 RESET = "\033[0m"
 
+def menu(opciones_tablero):
+    print('Menu')
+    for x, y in opciones_tablero.items():
+        if x == 4:
+            print(f'{x}. Fin')
+        else:
+            print(f'{x}. Tablero de {y[0]} x {y[1]}')
+
+def seleccionar_opcion(opciones_tablero):
+    opcion = int(input("Ingrese una opcion: "))
+    while opcion not in opciones_tablero:
+        print('Opcion invalida')
+        opcion = int(input("Vuelva a ingresar una opcion: "))
+    return opcion
+
 
 def crear_tablero(filas, columnas):
     alto = 2 * filas - 1
@@ -42,12 +57,12 @@ def crear_tablero(filas, columnas):
             tablero[i].insert(0, '  ')
 
     return tablero
+
 def imprimir_tablero(tablero):
     for i in range(len(tablero)):
         for j in range(len(tablero[i])):
             print(tablero[i][j], end=" ")
         print()
-
 
 def esta_en_rango(r, c, filas, columnas):
     return 1 <= r <= filas and 1 <= c <= columnas
@@ -174,3 +189,36 @@ def contar_puntaje(tablero):
             elif "B" in celda:
                 puntos_B += 1
     return puntos_A, puntos_B
+
+
+def juegoIniciado(opcionesTablero, opcion):
+    filas, columnas = opcionesTablero[opcion][0], opcionesTablero[opcion][1]
+    tablero = crear_tablero(filas, columnas)
+    max_movimientos = contar_movimientos(filas, columnas)
+    jugador = 'A'
+    for i in range(max_movimientos):
+        puntos_A, puntos_B = contar_puntaje(tablero)
+        print(f"Puntaje - A: {puntos_A} | B: {puntos_B}")
+        imprimir_tablero(tablero)
+        print()
+        print(f"Turno del jugador {jugador}")
+
+        movimiento_valido = False
+        while not movimiento_valido:
+            origen = leer_coordenada("Ingrese origen (fila columna): ", filas, columnas)
+            destino = leer_coordenada("Ingrese destino (fila columna): ", filas, columnas, origen)
+            movimiento_valido = colocar_linea(tablero, origen, destino, jugador)
+
+        jugador = 'B' if jugador == 'A' else 'A'
+
+    imprimir_tablero(tablero)
+    print("Tablero Lleno, juego terminado.")
+    puntos_A, puntos_B = contar_puntaje(tablero)
+    print(f"Puntaje final - A: {puntos_A} | B: {puntos_B}")
+
+    if puntos_A > puntos_B:
+        print("¡Jugador A gana el juego!")
+    elif puntos_B > puntos_A:
+        print("¡Jugador B gana el juego!")
+    else:
+        print("¡Empate!")

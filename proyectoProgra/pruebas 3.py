@@ -116,3 +116,57 @@ for i in range(max_movimientos):
 
 print("Juego terminado.")
 imprimir_tablero(tablero)
+
+
+def verificar_cuadro(tablero, origen, destino, jugador):
+    color = ROJO if jugador == 'A' else AZUL
+    r1, c1 = origen[0] * 2 - 1, origen[1] * 2 - 1
+    r2, c2 = destino[0] * 2 - 1, destino[1] * 2 - 1
+    cuadros_completados = 0
+
+    if r1 == r2:
+        cuadros_completados += verificar_cuadro_horizontal(tablero, r1, c1, c2, jugador, color)
+    elif c1 == c2:
+        cuadros_completados += verificar_cuadro_vertical(tablero, c1, r1, r2, jugador, color)
+
+    return cuadros_completados > 0
+
+def verificar_cuadro_horizontal(tablero, r, c1, c2, jugador, color):
+    completados = 0
+    mid_col = (c1 + c2) // 2
+
+    # Superior
+    if r > 1 and tablero[r][mid_col] == color + "-" + RESET:
+        if tablero[r-1][c1] != " " and tablero[r-1][c2] != " " and tablero[r-2][mid_col] != " ":
+            if tablero[r-1][mid_col] == " ":
+                tablero[r-1][mid_col] = jugador
+                completados += 1
+
+    # Inferior
+    if r < len(tablero) - 2 and tablero[r][mid_col] == color + "-" + RESET:
+        if tablero[r+1][c1] != " " and tablero[r+1][c2] != " " and tablero[r+2][mid_col] != " ":
+            if tablero[r+1][mid_col] == " ":
+                tablero[r+1][mid_col] = jugador
+                completados += 1
+
+    return completados
+
+def verificar_cuadro_vertical(tablero, c, r1, r2, jugador, color):
+    completados = 0
+    mid_row = (r1 + r2) // 2
+
+    # Izquierda
+    if c > 1 and tablero[mid_row][c] == color + "|" + RESET:
+        if tablero[r1][c-1] != " " and tablero[r2][c-1] != " " and tablero[mid_row][c-2] != " ":
+            if tablero[mid_row][c-1] == " ":
+                tablero[mid_row][c-1] = jugador
+                completados += 1
+
+    # Derecha
+    if c < len(tablero[0]) - 2 and tablero[mid_row][c] == color + "|" + RESET:
+        if tablero[r1][c+1] != " " and tablero[r2][c+1] != " " and tablero[mid_row][c+2] != " ":
+            if tablero[mid_row][c+1] == " ":
+                tablero[mid_row][c+1] = jugador
+                completados += 1
+
+    return completados

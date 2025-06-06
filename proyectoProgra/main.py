@@ -24,6 +24,8 @@ if opcion == 1:
     max_movimientos = contar_movimientos(filas, columnas)
     jugador = 'A'
     for i in range(max_movimientos):
+        puntos_A, puntos_B = contar_puntaje(tablero)
+        print(f"Puntaje - A: {puntos_A} | B: {puntos_B}")
         imprimir_tablero(tablero)
         print()
         print(f"Turno del jugador {jugador}")
@@ -34,8 +36,17 @@ if opcion == 1:
                 break
         jugador = 'B' if jugador == 'A' else 'A'
 
-    print("Juego terminado.")
     imprimir_tablero(tablero)
+    print("Juego terminado.")
+    puntos_A, puntos_B = contar_puntaje(tablero)
+    print(f"Puntaje final - A: {puntos_A} | B: {puntos_B}")
+
+    if puntos_A > puntos_B:
+        print("¡Jugador A gana el juego!")
+    elif puntos_B > puntos_A:
+        print("¡Jugador B gana el juego!")
+    else:
+        print("¡Empate!")
 
 elif opcion == 2:
     filas, columnas = opcionesTablero[opcion][0], opcionesTablero[opcion][1]
@@ -43,6 +54,8 @@ elif opcion == 2:
     max_movimientos = contar_movimientos(filas, columnas)
     jugador = 'A'
     for i in range(max_movimientos):
+        puntos_A, puntos_B = contar_puntaje(tablero)
+        print(f"Puntaje - A: {puntos_A} | B: {puntos_B}")
         imprimir_tablero(tablero)
         print()
         print(f"Turno del jugador {jugador}")
@@ -53,8 +66,17 @@ elif opcion == 2:
                 break
         jugador = 'B' if jugador == 'A' else 'A'
 
-    print("Juego terminado.")
     imprimir_tablero(tablero)
+    print("Juego terminado.")
+    puntos_A, puntos_B = contar_puntaje(tablero)
+    print(f"Puntaje final - A: {puntos_A} | B: {puntos_B}")
+
+    if puntos_A > puntos_B:
+        print("¡Jugador A gana el juego!")
+    elif puntos_B > puntos_A:
+        print("¡Jugador B gana el juego!")
+    else:
+        print("¡Empate!")
 
 elif opcion == 3:
     filas, columnas = opcionesTablero[opcion][0], opcionesTablero[opcion][1]
@@ -62,6 +84,8 @@ elif opcion == 3:
     max_movimientos = contar_movimientos(filas, columnas)
     jugador = 'A'
     for i in range(max_movimientos):
+        puntos_A, puntos_B = contar_puntaje(tablero)
+        print(f"Puntaje - A: {puntos_A} | B: {puntos_B}")
         imprimir_tablero(tablero)
         print()
         print(f"Turno del jugador {jugador}")
@@ -72,8 +96,17 @@ elif opcion == 3:
                 break
         jugador = 'B' if jugador == 'A' else 'A'
 
-    print("Juego terminado.")
     imprimir_tablero(tablero)
+    print("Juego terminado.")
+    puntos_A, puntos_B = contar_puntaje(tablero)
+    print(f"Puntaje final - A: {puntos_A} | B: {puntos_B}")
+
+    if puntos_A > puntos_B:
+        print("¡Jugador A gana el juego!")
+    elif puntos_B > puntos_A:
+        print("¡Jugador B gana el juego!")
+    else:
+        print("¡Empate!")
 
 elif opcion == 4:
-    print('Permina el programa')
+    print('Termina el programa')
